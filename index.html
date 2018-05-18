@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>home</title>
+	 <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+  	<ul class="nav navbar-nav">
+    <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+        <li><a href="./register.html">Register</a></li>
+         <li><a href="./course.html">Course</a></li>
+
+    </ul>
+     <ul class="nav navbar-nav navbar-right">
+        <li id="loginLi"><a href="./login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+           <li style="margin-top:13px;">
+    <div class="dropdown" id="loggedin">
+  <div class=" dropdown-toggle"  data-toggle="dropdown"><label id="userId"></label>
+  <span class="caret"></span></div>
+  <ul class="dropdown-menu">
+ <li ><a href="./enrolled.html">Enrolled Courses</a></li>
+          <li ><a href="changepassword.html">Change Password</a></li>
+          <li ><a onclick="logout()" >logut</a></li>
+  </ul>
+</div>
+         </li>
+      </ul>
+  </div>
+</nav>
+</header>
+
+
+</body>
+</html>
