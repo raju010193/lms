@@ -1,18 +1,22 @@
 
 
 var basePath="https://lms-yagna.herokuapp.com/";
+
+//var basePath="http://127.0.0.1:8000/";
 $(document).ready(function () {
 
 var username = localStorage.getItem("username");
 var token = localStorage.getItem("token");
-if(username !== null && token  !== null&& typeof(Storage) !== "undefined"){
+if(username != null && token  != null&& typeof(Storage) != "undefined"){
        $("#loggedin").show();
-            $("#userId").text(username)
-                $("#loginLi").hide()
+            $("#userId").text(username);
+                $("#loginLi").hide();
+                $("#registerLi").hide();
 
 }else{
      $("#loggedin").hide();
     $("#loginLi").show();
+    $("#registerLi").show();
 }
 var isSuperUser = localStorage.getItem("isSuperUser");
  if(isSuperUser === "true"){
@@ -34,8 +38,9 @@ function register() {
 
         var flag= true;
 
-        if(emailId===null || password===null || confirm===null){
+        if(emailId===null || emailId.length===0 || password===null || password.length===0 || confirm===null || userName===null || userName.length===0){
         flag=false;
+        alert("please fill the form with all details.");
         }
         $("#confirmId").hide()
         if(password != confirm){
@@ -51,19 +56,25 @@ function register() {
                 data: JSON.stringify({
                     username: userName,
                     password: password,
-                    email: emailId
+                    email: emailId,
                 }),
-            success: function(data){
+                dataType:"json",
+            "success": function(data){
+
                 alert("your account is created successfully.");
 
                   window.location.replace("./login.html");
 
+
             },
-            error: function(data){
+            "error": function(data){
                 if(data.status===207){
                 alert("User Already Exist please try different username.");
                 }else if(data.status===204){
                 alert("please set currect formate");
+                }
+                if(data.status===400){
+                alert("something went wrong..")
                 }
             }
         });
@@ -86,8 +97,9 @@ function changePassword() {
         var oldPassword = $("#oldPassword").val();
         var id = $("#passwordId").val();
         var flag= true;
-        if(confirmPassword===null || newPassword===null || oldPassword===null){
+        if(confirmPassword===null || confirmPassword.length===0 || newPassword===null || newPassword.length===0 || oldPassword===null||oldPassword.length===0){
             flag= false;
+            alert("please fill the form with all details")
         }
         $("#confirmId").hide()
         if(newPassword != confirmPassword){
@@ -121,6 +133,9 @@ function changePassword() {
              alert("Your current Password is does not matched.");
              window.location.reload();
          }
+         else if(data.status===403){
+         window.location.replace("./login.html");
+         }
         }
     });
 }
@@ -132,8 +147,9 @@ function  userLogin() {
       var userName = $("#user-name").val();
         var password = $("#user-password").val();
         var flag=true;
-        if(userName===null || password===null){
+        if(userName===null || userName.length ===0 || password===null || password.length===0){
         flag=false;
+        alert("Please fill the login form.")
 
         }
         if(flag){
@@ -158,7 +174,7 @@ function  userLogin() {
                 }
                 else{
                 $("#isadmin").hide();
-                 window.location.replace("./course.html");
+                 window.location.replace("./index.html");
                 }
 
             },
@@ -186,6 +202,7 @@ function  userLogin() {
                 data: JSON.stringify({
 
                 }),
+                dataType:"json",
             success: function(data){
                 localStorage.clear();
                  $("#loggedin").hide();
