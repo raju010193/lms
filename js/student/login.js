@@ -2,7 +2,7 @@
 
 var basePath="https://lms-yagna.herokuapp.com/";
 
-//var basePath="http://127.0.0.1:8000/";
+///var basePath="http://127.0.0.1:8000/";
 $(document).ready(function () {
 
 var username = localStorage.getItem("username");
@@ -48,6 +48,7 @@ function register() {
         $("#confirmId").show();
         }
         if(flag){
+         $(".loader").show();
 
      $.ajax({
                 type: "POST",
@@ -60,7 +61,7 @@ function register() {
                 }),
                 dataType:"json",
             "success": function(data){
-
+  $(".loader").hide();
                 alert("your account is created successfully.");
 
                   window.location.replace("./login.html");
@@ -68,6 +69,7 @@ function register() {
 
             },
             "error": function(data){
+             $(".loader").hide();
                 if(data.status===207){
                 alert("User Already Exist please try different username.");
                 }else if(data.status===204){
@@ -76,6 +78,7 @@ function register() {
                 if(data.status===400){
                 alert("something went wrong..")
                 }
+
             }
         });
         }
@@ -107,6 +110,7 @@ function changePassword() {
         $("#confirmId").show();
         }
         if(flag){
+         $(".loader").show();
  $.ajax({
                 type: "PUT",
                 url: basePath+"api/accounts/change-password/",
@@ -120,10 +124,13 @@ function changePassword() {
                 dataType: "json",
         success:function (data) {
              localStorage.setItem('token', data.token);
+              $(".loader").hide();
             alert("success")
-            window.location.reload();
+           window.location.reload();
+
         },
         error:function (data) {
+        $(".loader").hide();
          if(data.status === 500){
              alert("This email id not registered");
              window.location.reload();
@@ -136,6 +143,7 @@ function changePassword() {
          else if(data.status===403){
          window.location.replace("./login.html");
          }
+
         }
     });
 }
@@ -153,6 +161,7 @@ function  userLogin() {
 
         }
         if(flag){
+        $(".loader").show();
         $.ajax({
                 type: "POST",
                 url: basePath+"api/accounts/login/",
@@ -173,10 +182,10 @@ function  userLogin() {
                      window.location.replace("./postcourse.html");
                 }
                 else{
-                $("#isadmin").hide();
+
                  window.location.replace("./index.html");
                 }
-
+ //$(".loader").hide();
             },
             error: function(data){
                 if(data.status==500){
@@ -186,6 +195,7 @@ function  userLogin() {
                    alert("username or password wrong please enter again")
 
                 }
+                 $(".loader").hide();
 
             }
         });

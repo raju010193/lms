@@ -53,7 +53,7 @@ function bodyOnLoad(){
 }
 
 function studentEnrolled(){
-
+        $(".loader").show();
    $.ajax({     type: "GET",
                 url: basePath+"api/student/get-enroll-courses-by-student/",
                 contentType: "application/json",
@@ -69,13 +69,15 @@ function studentEnrolled(){
                  var obj = data[i];
                       $("#course-row").append("<tr><td>"+(i+1)+"</td><td>"+obj.title+"</td><td>"+obj.author+"</td><td>"+obj.days+"</td><td>ENROLLED</td></tr>");
                 }
-
+$(".loader").hide();
             },
             error: function (data) {
 
             }
 
+
         });
+
 
 
 }
@@ -132,6 +134,7 @@ flag=false;
 alert("please fill the form with valid details");
 }
 if(flag){
+ $(".loader").show();
 
      $.ajax({     type: "POST",
                 url: basePath+"api/admin/add-course/",
@@ -147,11 +150,13 @@ if(flag){
                 },
                 dataType:"json",
         success:function (data) {
-
+ $(".loader").hide();
             alert("success")
+
             window.location.reload();
         },
         error:function (data) {
+          $(".loader").hide();
          if(data.status=== 500){
              alert("something went wrong.");
          }
@@ -163,6 +168,7 @@ if(flag){
          alert("Your are not loggedIn.")
             window.location.replace("./login.html");
          }
+
         }
 
     });
@@ -173,7 +179,7 @@ if(flag){
 
 function viewStudents(){
 
-
+ $(".loader").show();
 
 
      $.ajax({     type: "GET",
@@ -204,6 +210,7 @@ function viewStudents(){
 
                 }
                 });
+                 $(".loader").hide();
         },
         error:function (data) {
          if(data.status=== 500){
@@ -217,6 +224,7 @@ function viewStudents(){
          alert("Your are not loggedIn.")
           window.location.replace("./login.html");
          }
+          $(".loader").hide();
         }
 
     });
@@ -271,7 +279,7 @@ function addToCourse(addToCourseFormId){
 
 
 function viewEnrolledCourse(){
-
+ $(".loader").show();
 
      $.ajax({     type: "GET",
                 url: basePath+"api/admin/get-enrolled-students/",
@@ -289,6 +297,7 @@ function viewEnrolledCourse(){
 
                     $("#course-row").append("<tr><td>"+(i+1)+"</td><td>"+obj.course.title+"</td><td>"+obj.course.author+"</td><td>"+obj.course.days+"</td><td>"+obj.student.userName+"</td><td>"+obj.student.email+"</td><td><button class='enroll btn btn-primary' onClick='deleteEnrolledStudents("+obj.enId+")'>Delete Enrolled Students</button></td></tr>");
                 }
+          $(".loader").hide();
         },
         error:function (data) {
          if(data.status=== 500){
@@ -302,6 +311,7 @@ function viewEnrolledCourse(){
          alert("Your are not loggedIn.")
             window.location.replace("./login.html");
          }
+          $(".loader").hide();
         }
 
     });
