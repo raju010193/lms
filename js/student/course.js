@@ -67,7 +67,11 @@ function studentEnrolled(){
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
                  var obj = data[i];
-                      $("#course-row").append("<tr><td>"+(i+1)+"</td><td>"+obj.title+"</td><td>"+obj.author+"</td><td>"+obj.days+"</td><td>ENROLLED</td></tr>");
+
+                  var card ="<div class='card'><div class='card-body'><h4 class='card-title'>"+obj.title+"</h4><p class='card-title'><label><b>Duration(in Days) :  </b>"+obj.days+"</label></p><p class='card-title'><label><b>Author    :    </b>"+obj.author+"</label></p><p class='card-text'><label><b>Description</b></label><hr><p class='card-text'>"+obj.courseDetails+"</p><a href='#' class='button btn btn-secondary disabled'>ENROLLED</a></div></div>";
+
+            $("#cardId").append(card);
+                 //     $("#course-row").append("<tr><td>"+(i+1)+"</td><td>"+obj.title+"</td><td>"+obj.author+"</td><td>"+obj.days+"</td><td>ENROLLED</td></tr>");
                 }
 $(".loader").hide();
             },
