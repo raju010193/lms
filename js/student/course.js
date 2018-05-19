@@ -1,7 +1,7 @@
 
-//var basePath="https://lms-yagna.herokuapp.com/";
+var basePath="https://lms-yagna.herokuapp.com/";
 
-var basePath="http://127.0.0.1:8000/";
+//var basePath="http://127.0.0.1:8000/";
 function bodyOnLoad(){
     $(".loader").show();
     $.get(basePath+"api/get-all/", function(data, status){
