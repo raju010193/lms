@@ -3,7 +3,7 @@ var basePath="https://lms-yagna.herokuapp.com/";
 
 //var basePath="http://127.0.0.1:8000/";
 function bodyOnLoad(){
-
+    $(".loader").show();
     $.get(basePath+"api/get-all/", function(data, status){
             var superUser = localStorage.getItem("isSuperUser");
             if(superUser==="true"){
@@ -47,14 +47,11 @@ function bodyOnLoad(){
 
                 }
              }
+             $(".loader").hide();
         });
 
-};
-function viewCourse(id){
-$(".details").hide();
-$("#row_"+id).show();
-
 }
+
 function studentEnrolled(){
 
    $.ajax({     type: "GET",
@@ -77,7 +74,9 @@ function studentEnrolled(){
             error: function (data) {
 
             }
+
         });
+
 
 }
 
@@ -113,6 +112,7 @@ function enroll(courseId){
  alert("Enrolled successfully");
          }
         }
+
     });
 
 }
@@ -132,6 +132,7 @@ flag=false;
 alert("please fill the form with valid details");
 }
 if(flag){
+
      $.ajax({     type: "POST",
                 url: basePath+"api/admin/add-course/",
                 contentType: "application/json",
@@ -163,6 +164,7 @@ if(flag){
             window.location.replace("./login.html");
          }
         }
+
     });
 }
 }
@@ -216,6 +218,7 @@ function viewStudents(){
           window.location.replace("./login.html");
          }
         }
+
     });
 
 }
@@ -259,6 +262,7 @@ function addToCourse(addToCourseFormId){
  alert("This course Seats are full..");
          }
         }
+
     });
 
 
@@ -267,6 +271,7 @@ function addToCourse(addToCourseFormId){
 
 
 function viewEnrolledCourse(){
+
 
      $.ajax({     type: "GET",
                 url: basePath+"api/admin/get-enrolled-students/",
@@ -298,6 +303,7 @@ function viewEnrolledCourse(){
             window.location.replace("./login.html");
          }
         }
+
     });
 
 }
@@ -333,6 +339,7 @@ function deleteEnrolledStudents(enrollId){
             window.location.replace("./login.html");
          }
         }
+
     });
 
 }
@@ -367,6 +374,7 @@ function deleteCourse(courseId){
             window.location.replace("./login.html");
          }
         }
+
     });
 
 }
@@ -400,6 +408,7 @@ function deleteStudent(studentId){
            window.location.replace("./login.html");
          }
         }
+
     });
 
 }
