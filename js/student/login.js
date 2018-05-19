@@ -1,8 +1,8 @@
 
 
-var basePath="https://lms-yagna.herokuapp.com/";
+//var basePath="https://lms-yagna.herokuapp.com/";
 
-///var basePath="http://127.0.0.1:8000/";
+var basePath="http://127.0.0.1:8000/";
 $(document).ready(function () {
 
 var username = localStorage.getItem("username");
