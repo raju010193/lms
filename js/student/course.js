@@ -204,7 +204,7 @@ function viewStudents(){
 
  for (var i = 0; i < students.length; i++) {
                  var obj = students[i];
-                      $("#course-row").append("<tr><td>"+(i+1)+"</td><td>"+obj.userName+"</td><td>"+obj.email+"</td><td>"+obj.total+"</td><form id='addToCourseForm_"+obj.id+"'><td><input type='hidden' id='student_"+obj.id+"' name='courseId' value='"+obj.id+"'</td><td><select id='course_"+obj.id+"'name='selectedCourse'></select></td><td><button type='submit' data-form-id='addToCourseForm_"+obj.id+"' onclick='addToCourse("+obj.id+")' class='btn btn-primary'>add to course</button></td></form><td><button class='btn btn-danger' onClick='deleteStudent("+obj.id+")'>Delete</button></td></tr>");
+                      $("#course-row").append("<tr><td>"+(i+1)+"</td><td>"+obj.userName+"</td><td>"+obj.email+"</td><td>"+obj.total+"</td><form id='addToCourseForm_"+obj.id+"'><td><input type='hidden' id='student_"+obj.id+"' name='courseId' value='"+obj.id+"'</td><td><select class='form-control' id='course_"+obj.id+"'name='selectedCourse'></select></td><td><button type='submit' data-form-id='addToCourseForm_"+obj.id+"' onclick='addToCourse("+obj.id+")' class='btn btn-primary'>add to course</button></td></form></tr>");
                 var select = document.getElementById("course_"+obj.id);
                   for(var j=0;j<data.length;j++) {
                   var cObj = data[j];
@@ -424,5 +424,54 @@ function deleteStudent(studentId){
         }
 
     });
+
+}
+
+function listStudentsToRemove(){
+
+
+ $(".loader").show();
+
+
+     $.ajax({     type: "GET",
+                url: basePath+"api/admin/get-students/",
+                contentType: "application/json",
+                data: JSON.stringify({
+
+                }),
+                 headers: {
+                "Authorization":"Token "+localStorage.getItem('token'),
+                },
+                dataType: "json",
+        success:function (data) {
+        var students = data;
+
+ for (var i = 0; i < students.length; i++) {
+                 var obj = students[i];
+                      $("#course-row").append("<tr><td>"+(i+1)+"</td><td>"+obj.userName+"</td><td>"+obj.email+"</td><td>"+obj.total+"</td><td><button class='btn btn-danger' onClick='deleteStudent("+obj.id+")'>Delete</button></td></tr>");
+
+
+                }
+
+                 $(".loader").hide();
+        },
+        error:function (data) {
+         if(data.status=== 500){
+             alert("something went wrong.");
+         }
+         else if(data.status ===401){
+             alert("Permissions Denied.")
+             window.location.replace("./login.html");
+         }
+         else if(data.status===403){
+         alert("Your are not loggedIn.")
+          window.location.replace("./login.html");
+         }
+          $(".loader").hide();
+        }
+
+    });
+
+
 
 }
